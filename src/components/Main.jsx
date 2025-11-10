@@ -19,22 +19,37 @@ export default function Main() {
         setTitle("");
     }
 
+    function handleDelete(id) {
+        setArticles(articles.filter(article => article.id !== id));
+    }
+
     return (
-        <main>
+        <main className="container mt-4">
             <h1>Articoli della Gazzetta di Boolean</h1>
 
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit} className="d-flex gap-2 my-3">
                 <input
+                    className="form-control"
                     value={title}
                     onChange={(e) => setTitle(e.target.value)}
                     placeholder="Nuovo articolo"
                 />
-                <button>Aggiungi</button>
+                <button className="btn btn-primary">Aggiungi</button>
             </form>
 
-            <ul>
+            <ul className="list-group">
                 {articles.map((article) => (
-                    <li key={article.id}>{article.title}</li>
+                    <li
+                        key={article.id}
+                        className="list-group-item d-flex justify-content-between align-items-center"
+                    >
+                        {article.title}
+                        <i
+                            className="bi bi-trash text-danger"
+                            style={{ cursor: "pointer" }}
+                            onClick={() => handleDelete(article.id)}
+                        ></i>
+                    </li>
                 ))}
             </ul>
         </main>
